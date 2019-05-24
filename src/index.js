@@ -12,7 +12,8 @@ const defaultTheme = {
   primaryColor: 'rgb(189, 195, 199)',
   secondaryColor: 'rgb(39, 174, 96)',
   size: 70,
-  buttonColor: '#fff'
+  buttonColor: '#fff',
+  textColor: '#fff'
 }
 
 const Clap = class extends React.Component {
@@ -107,6 +108,10 @@ const Clap = class extends React.Component {
       circleBurst,
       triangleBurst
     ])
+
+    if (this.props.countTotal) {
+      this.animationTimeline.replay()
+    }
   }
 
   getTheme () {
