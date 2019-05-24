@@ -36,9 +36,6 @@ const Clap = class extends React.Component {
   componentDidMount () {
     const tlDuration = 300
 
-    console.log(this.elClap)
-    console.log(this.elClapCount)
-    console.log(this.elClapCountTotal)
     const triangleBurst = new mojs.Burst({
       parent: this.elClap.current,
       radius: { 50: 95 },
