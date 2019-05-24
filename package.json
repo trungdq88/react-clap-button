@@ -2,7 +2,7 @@
   "name": "@trungdq88/react-clap-button",
   "description": "A Medium like clap button",
   "homepage": "https://github.com/trungdq88/react-clap-button",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "lib/index.js",
   "author": {
     "email": "josefrancisco.verdu@gmail.com",
