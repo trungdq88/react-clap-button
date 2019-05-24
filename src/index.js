@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import mojs from 'mo-js'
 import { ThemeProvider } from 'styled-components'
 
@@ -26,14 +26,21 @@ const Clap = class extends React.Component {
       isClicked: props.count > 0,
       isHover: false
     }
+    this.elClap = createRef()
+    this.elClapCount = createRef()
+    this.elClapCountTotal = createRef()
     this.onClick = this.onClick.bind(this)
     this.onClickClear = this.onClickClear.bind(this)
   }
 
   componentDidMount () {
     const tlDuration = 300
+
+    console.log(this.elClap)
+    console.log(this.elClapCount)
+    console.log(this.elClapCountTotal)
     const triangleBurst = new mojs.Burst({
-      parent: '#clap',
+      parent: this.elClap.current,
       radius: { 50: 95 },
       count: 5,
       angle: 30,
@@ -52,7 +59,7 @@ const Clap = class extends React.Component {
     })
 
     const circleBurst = new mojs.Burst({
-      parent: '#clap',
+      parent: this.elClap.current,
       radius: { 50: 75 },
       angle: 25,
       duration: tlDuration,
@@ -67,7 +74,7 @@ const Clap = class extends React.Component {
     })
 
     const countAnimation = new mojs.Html({
-      el: '#clap--count',
+      el: this.elClapCount.current,
       isShowStart: false,
       isShowEnd: true,
       y: { 0: -30 },
@@ -82,7 +89,7 @@ const Clap = class extends React.Component {
     const opacityStart = this.props.count > 0 && this.state.unclicked ? 1 : 0
 
     const countTotalAnimation = new mojs.Html({
-      el: '#clap--count-total',
+      el: this.elClapCountTotal.current,
       isShowStart: false,
       isShowEnd: true,
       opacity: { [opacityStart]: 1 },
@@ -92,14 +99,13 @@ const Clap = class extends React.Component {
     })
 
     const scaleButton = new mojs.Html({
-      el: '#clap',
+      el: this.elClap.current,
       duration: tlDuration,
       scale: { 1.3: 1 },
       easing: mojs.easing.out
     })
 
-    const clap = document.getElementById('clap')
-    clap.style.transform = 'scale(1, 1)'
+    this.elClap.current.style.transform = 'scale(1, 1)'
     this.animationTimeline = new mojs.Timeline()
     this.animationTimeline.add([
       countAnimation,
@@ -165,15 +171,15 @@ const Clap = class extends React.Component {
       <ThemeProvider theme={this.getTheme()}>
         <ClapWrap isClicked={isClicked} onClickClear={this.onClickClear}>
           <ClapButton
-            id='clap'
+            ref={this.elClap}
             onClick={this.onClick}
             onMouseEnter={e => this.setState({ isHover: true })}
             onMouseLeave={e => this.setState({ isHover: false })}
             isHover={isHover && count === 0}
           >
-            <ClapIcon id='clap--icon' isClicked={isClicked} />
-            <ClapCount id='clap--count'>+{count}</ClapCount>
-            <ClapCountTotal id='clap--count-total'>
+            <ClapIcon isClicked={isClicked} />
+            <ClapCount ref={this.elClapCount}>+{count}</ClapCount>
+            <ClapCountTotal ref={this.elClapCountTotal}>
               {Number(countTotal).toLocaleString()}
             </ClapCountTotal>
           </ClapButton>
