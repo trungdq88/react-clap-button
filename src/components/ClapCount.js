@@ -7,7 +7,7 @@ const ClapCount = styled.span`
   color: white;
   border-radius: 50%;
   backface-visibility: hidden;
-  ${textStyles} ${({ theme: { textColor, size } }) => {
+  ${textStyles} ${({ theme: { primaryColor, size } }) => {
     const half = `${size / 2}px`
 
     return css`
@@ -16,7 +16,7 @@ const ClapCount = styled.span`
       line-height: ${half};
       top: -${size / 2}px;
       left: ${size / 4}px;
-      background: ${textColor};
+      background: ${primaryColor};
     `
   }};
 `

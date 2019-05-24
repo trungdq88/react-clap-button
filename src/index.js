@@ -110,7 +110,9 @@ const Clap = class extends React.Component {
     ])
 
     if (this.props.countTotal) {
-      this.animationTimeline.replay()
+      this.showTotalTimeline = new mojs.Timeline()
+      this.showTotalTimeline.add([countTotalAnimation])
+      this.showTotalTimeline.play()
     }
   }
 
@@ -135,19 +137,24 @@ const Clap = class extends React.Component {
         }
       },
       () => {
-        this.props.onClick && this.props.onClick(this.state)
+        this.props.onClapChange && this.props.onClapChange(this.state)
       }
     )
   }
 
   onClickClear () {
-    this.setState(({ count, countTotal }) => {
-      return {
-        isClicked: false,
-        countTotal: countTotal - count,
-        count: 0
+    this.setState(
+      ({ count, countTotal }) => {
+        return {
+          isClicked: false,
+          countTotal: countTotal - count,
+          count: 0
+        }
+      },
+      () => {
+        this.props.onClapChange && this.props.onClapChange(this.state)
       }
-    })
+    )
   }
 
   render () {
