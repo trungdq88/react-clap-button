@@ -1,6 +1,6 @@
-import styled, {css, keyframes} from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
-const shockwave = ({theme: {secondaryColor}}) => keyframes`
+const shockwave = ({ theme: { secondaryColor } }) => keyframes`
 0%{
      box-shadow:0 0
  }
@@ -16,7 +16,7 @@ const ClapButton = styled.button`
   position: relative;
   outline: 1px solid transparent;
   border-radius: 50%;
-  background: #fff;
+  background: ${({ theme: { buttonColor } }) => buttonColor};
   transition: border 0.1s ease-in;
 
   &::after {
@@ -32,13 +32,13 @@ const ClapButton = styled.button`
     cursor: pointer;
   }
 
-  ${props => props.isHover && css`
-    &::after {
-      animation: ${shockwave} 2s infinite;
-    }
-  `}
-
-  ${({theme: {primaryColor, secondaryColor, size}}) => css`
+  ${props =>
+    props.isHover &&
+    css`
+      &::after {
+        animation: ${shockwave} 2s infinite;
+      }
+    `} ${({ theme: { primaryColor, secondaryColor, size } }) => css`
     width: ${size}px;
     height: ${size}px;
     border: 1px solid ${primaryColor};
@@ -51,10 +51,11 @@ const ClapButton = styled.button`
       fill: ${secondaryColor};
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       border: 1px solid ${secondaryColor};
     }
-  `}
+  `};
 `
 
 export default ClapButton
